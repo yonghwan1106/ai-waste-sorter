@@ -1,0 +1,29 @@
+# AI Waste Sorter - Dependencies
+# Python 3.9+
+
+# AI/ML
+ultralytics>=8.1.0        # YOLOv8
+torch>=2.0.0              # PyTorch (CPU - GPU는 Colab에서)
+torchvision>=0.15.0
+onnxruntime>=1.16.0       # ONNX 추론 (경량 배포용)
+
+# Computer Vision
+opencv-python>=4.8.0      # 웹캠 + 영상처리
+Pillow>=10.0.0            # 이미지 처리
+
+# Web Dashboard
+flask>=3.0.0              # 웹 서버
+flask-socketio>=5.3.0     # 실시간 통신 (대시보드용)
+
+# Arduino Serial
+pyserial>=3.5             # Arduino 시리얼 통신
+
+# Data & Visualization
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0         # 학습 그래프, 혼동행렬
+
+# Utilities
+requests>=2.31.0          # 데이터셋 다운로드
+tqdm>=4.65.0              # 진행률 표시
+pyyaml>=6.0               # YAML 설정 파일

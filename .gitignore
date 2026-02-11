@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# AI Models (large files)
+models/*.pt
+models/*.onnx
+models/*.tflite
+runs/
+
+# Data (large files)
+data/images/
+data/labels/
+data/*.zip
+data/*.tar.gz
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment
+.env
+*.log
+
+# Jupyter
+.ipynb_checkpoints/

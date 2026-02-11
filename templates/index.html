@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 스마트 분리수거 로봇 - 대시보드</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>AI 스마트 분리수거 로봇</h1>
+        <div class="status-bar">
+            <span id="status-indicator" class="status-dot"></span>
+            <span id="status-text">연결 중...</span>
+            <span id="fps-display">FPS: --</span>
+        </div>
+    </header>
+
+    <main>
+        <!-- 실시간 카메라 피드 -->
+        <section class="camera-section">
+            <h2>실시간 카메라</h2>
+            <div class="camera-container">
+                <img id="camera-feed" src="/video_feed" alt="카메라 피드"
+                     onerror="this.style.display='none'; document.getElementById('camera-fallback').style.display='flex';">
+                <div id="camera-fallback" class="camera-fallback" style="display:none;">
+                    <p>카메라 연결 대기중</p>
+                    <p class="sub">--no-camera 모드이거나 카메라가 없습니다</p>
+                </div>
+            </div>
+            <div id="last-detection" class="last-detection">
+                <span class="label">최근 분류:</span>
+                <span id="last-class">--</span>
+                <span id="last-conf">--</span>
+            </div>
+        </section>
+
+        <!-- 통계 카드 -->
+        <section class="stats-section">
+            <h2>분류 통계</h2>
+            <div class="stats-cards">
+                <div class="card total">
+                    <div class="card-value" id="total-count">0</div>
+                    <div class="card-label">총 분류</div>
+                </div>
+                <div class="card plastic">
+                    <div class="card-value" id="count-plastic">0</div>
+                    <div class="card-label">플라스틱</div>
+                </div>
+                <div class="card can">
+                    <div class="card-value" id="count-can">0</div>
+                    <div class="card-label">캔</div>
+                </div>
+                <div class="card paper">
+                    <div class="card-value" id="count-paper">0</div>
+                    <div class="card-label">종이</div>
+                </div>
+                <div class="card glass">
+                    <div class="card-value" id="count-glass">0</div>
+                    <div class="card-label">유리병</div>
+                </div>
+                <div class="card vinyl">
+                    <div class="card-value" id="count-vinyl">0</div>
+                    <div class="card-label">비닐</div>
+                </div>
+                <div class="card general">
+                    <div class="card-value" id="count-general">0</div>
+                    <div class="card-label">일반쓰레기</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 차트 -->
+        <section class="charts-section">
+            <div class="chart-container">
+                <h3>종류별 비율</h3>
+                <canvas id="pieChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>분류 히스토리</h3>
+                <canvas id="barChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>2026 ICT 융합 프로젝트 공모전 | AI 스마트 분리수거 로봇</p>
+    </footer>
+
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
