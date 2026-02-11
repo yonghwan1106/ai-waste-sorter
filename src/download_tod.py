@@ -27,25 +27,30 @@ from tqdm import tqdm
 TOD_ZENODO_URL = "https://zenodo.org/api/records/4607158/files/TrAsh_DAtaset_v1.1.zip/content"
 DATA_DIR = Path(__file__).parent.parent / "data"
 
-# TOD 원본 10 카테고리 (COCO format의 category id 순서)
-# paper, paperpack, can, glass, pet, plastic, vinyl, styrofoam, battery, clothes
+# TOD 원본 10 카테고리 (COCO format의 category id 순서, 실제 데이터셋 기준)
+# paper, paperpack, papercup, can, bottle, pet, plastic, vinyl, cap, label
 TOD_CATEGORIES = [
-    "paper", "paperpack", "can", "glass", "pet",
-    "plastic", "vinyl", "styrofoam", "battery", "clothes"
+    "paper", "paperpack", "papercup", "can", "bottle",
+    "pet", "plastic", "vinyl", "cap", "label"
 ]
 
 # TOD 원본 카테고리명 -> 우리 6클래스 ID 매핑
+# 실제 Zenodo v1.1 데이터셋 카테고리 전부 포함
 CLASS_REMAP = {
     "paper": 2,       # 종이
-    "paperpack": 2,   # 종이
+    "paperpack": 2,   # 종이 (종이팩)
+    "papercup": 2,    # 종이 (종이컵)
     "can": 1,         # 캔
-    "glass": 3,       # 유리병
-    "pet": 0,         # 플라스틱
+    "bottle": 3,      # 유리병
+    "glass": 3,       # 유리병 (호환용)
+    "pet": 0,         # 플라스틱 (PET)
     "plastic": 0,     # 플라스틱
     "vinyl": 4,       # 비닐
-    "styrofoam": 0,   # 플라스틱류
-    "battery": 5,     # 일반쓰레기
-    "clothes": 5,     # 일반쓰레기
+    "cap": 0,         # 플라스틱 (병뚜껑)
+    "label": 5,       # 일반쓰레기 (라벨)
+    "styrofoam": 0,   # 플라스틱류 (호환용)
+    "battery": 5,     # 일반쓰레기 (호환용)
+    "clothes": 5,     # 일반쓰레기 (호환용)
 }
 
 NEW_CLASS_NAMES = {
