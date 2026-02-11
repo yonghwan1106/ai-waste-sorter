@@ -1,0 +1,54 @@
+%%{ init: { 'theme': 'dark' } }%%
+graph TB
+    subgraph INPUT["입력부"]
+        CAM["USB 웹캠<br/>1080p"]
+        USS["초음파 센서<br/>HC-SR04"]
+    end
+
+    subgraph AI["AI 처리부 (노트북/RPi)"]
+        CV["OpenCV<br/>영상 캡처"]
+        YOLO["YOLOv8 Nano<br/>쓰레기 분류"]
+        CTRL["Python 제어 로직<br/>분류 결정"]
+        FLASK["Flask 웹서버<br/>대시보드"]
+    end
+
+    subgraph HW["하드웨어 제어부 (Arduino)"]
+        ARD["Arduino Uno R3"]
+        SV1["서보모터 #1<br/>방향 전환"]
+        SV2["서보모터 #2<br/>게이트 개폐"]
+        LED["LED x5<br/>분류 결과 표시"]
+    end
+
+    subgraph OUTPUT["분류함 (5구)"]
+        B1["플라스틱"]
+        B2["캔"]
+        B3["종이"]
+        B4["유리병"]
+        B5["비닐/일반"]
+    end
+
+    subgraph DASH["웹 대시보드"]
+        LIVE["실시간 카메라 피드"]
+        STATS["분류 통계 차트"]
+        COUNT["누적 카운터"]
+    end
+
+    CAM -->|USB| CV
+    CV --> YOLO
+    YOLO -->|클래스+신뢰도| CTRL
+    USS -->|거리 데이터| ARD
+    ARD -->|물체 감지| CTRL
+    CTRL -->|Serial USB| ARD
+    ARD --> SV1
+    ARD --> SV2
+    ARD --> LED
+    SV1 --> OUTPUT
+    SV2 --> OUTPUT
+    CTRL --> FLASK
+    FLASK --> DASH
+
+    style INPUT fill:#1e40af,stroke:#3b82f6
+    style AI fill:#065f46,stroke:#10b981
+    style HW fill:#92400e,stroke:#f59e0b
+    style OUTPUT fill:#581c87,stroke:#a855f7
+    style DASH fill:#164e63,stroke:#22d3ee

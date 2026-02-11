@@ -1,0 +1,32 @@
+%%{ init: { 'theme': 'dark' } }%%
+flowchart TD
+    START(["시스템 시작"]) --> INIT["초기화<br/>카메라, AI 모델, Arduino"]
+    INIT --> WAIT{"초음파 센서:<br/>물체 감지?"}
+
+    WAIT -->|No| WAIT
+    WAIT -->|"Yes (15cm 이내)"| CAPTURE["웹캠 프레임 캡처"]
+
+    CAPTURE --> INFER["YOLOv8 추론<br/>쓰레기 분류"]
+    INFER --> CONF{"신뢰도 ≥ 50%?"}
+
+    CONF -->|No| RETRY["재촬영 (최대 3회)"]
+    RETRY --> CAPTURE
+    CONF -->|Yes| CLASS["분류 결과 결정"]
+
+    CLASS --> SERIAL["Serial 명령 전송<br/>Arduino → 서보모터"]
+    SERIAL --> GATE["게이트 동작"]
+
+    GATE --> LED_ON["해당 LED 점등"]
+    LED_ON --> SV1["서보1: 방향 전환<br/>(좌/중/우)"]
+    SV1 --> SV2["서보2: 게이트 열기"]
+    SV2 --> DELAY["2초 대기<br/>(쓰레기 통과)"]
+    DELAY --> CLOSE["게이트 닫기<br/>서보 복귀"]
+
+    CLOSE --> LOG["분류 기록 저장<br/>stats.json"]
+    LOG --> DASH["대시보드 업데이트<br/>차트 갱신"]
+    DASH --> WAIT
+
+    style START fill:#22c55e,stroke:#16a34a
+    style CONF fill:#eab308,stroke:#ca8a04
+    style WAIT fill:#3b82f6,stroke:#2563eb
+    style GATE fill:#f97316,stroke:#ea580c
